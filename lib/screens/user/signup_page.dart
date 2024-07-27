@@ -12,8 +12,9 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  // final String registerUrl = 'http://10.0.2.2:9001/api/register/';
-  final String registerUrl = 'http://10.0.2.2:9001/api/register/';
+  // final String registerUrl = 'https://b6d9-115-98-217-224.ngrok-free.app/api/register/';
+  final String registerUrl =
+      'https://b6d9-115-98-217-224.ngrok-free.app/api/register/';
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

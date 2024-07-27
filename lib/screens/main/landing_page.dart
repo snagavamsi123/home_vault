@@ -30,7 +30,8 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final String loginUrl = 'http://10.0.2.2:9001/api/token/';
+  final String loginUrl =
+      'https://b6d9-115-98-217-224.ngrok-free.app/api/token/';
   final storage = FlutterSecureStorage();
 
   @override
@@ -103,10 +104,11 @@ class _LandingPageState extends State<LandingPage> {
 // currently commented
   Future<bool> verifyAccessToken(String accessToken) async {
     print('calling verify aopiiiipipipi');
-    final verifyUrl = 'http://10.0.2.2:9001/api/verify-token/';
+    final verifyUrl =
+        'https://b6d9-115-98-217-224.ngrok-free.app/api/verify-token/';
     final response = await http.post(
       Uri.parse(verifyUrl),
-      headers: {'Authorization': 'Bearer $accessToken'},
+      headers: {'Authorization': 'Token $accessToken'},
     );
 
     return response.statusCode == 200;

@@ -15,6 +15,9 @@ import 'package:home_vault/screens/property/forms/edit_property_details.dart';
 import 'package:home_vault/screens/property/forms/property_details_form.dart';
 import 'package:home_vault/screens/main/landing_page.dart';
 import 'package:home_vault/screens/property/forms/room_details_update.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// import 'package:open_file/open_file.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RadioController {
   bool? value;
@@ -295,6 +298,17 @@ class _AccordionWidgetState extends State<AccordionWidget> {
                   //   title: Text('Description: ${item.description}'),
                   // ),
                   ListTile(
+                    contentPadding: EdgeInsets.all(16),
+                    title: Text(
+                      'Description',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    subtitle: Text(
+                      "${item.description}",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                  ListTile(
                     title: Text('Attached Files: '),
                     subtitle: item.files.isNotEmpty
                         ? Text("")
@@ -319,16 +333,16 @@ class _AccordionWidgetState extends State<AccordionWidget> {
                                 return GestureDetector(
                                   onTap: () {
                                     showFilePreviewDialog(context, "preview",
-                                        "http://10.0.2.2:9001$file");
+                                        "https://b6d9-115-98-217-224.ngrok-free.app$file");
 
-                                    // ImagePreviewScreen(imageUrl: 'http://10.0.2.2:9001$file')
+                                    // ImagePreviewScreen(imageUrl: 'https://b6d9-115-98-217-224.ngrok-free.app$file')
                                   },
                                   child: Image.network(
-                                      'http://10.0.2.2:9001$file'),
+                                      'https://b6d9-115-98-217-224.ngrok-free.app$file'),
                                 );
                               },
 
-                              // onclick ImagePreviewScreen(imageUrl: 'http://10.0.2.2:9001$file'),
+                              // onclick ImagePreviewScreen(imageUrl: 'https://b6d9-115-98-217-224.ngrok-free.app$file'),
                             );
                           }).toList(),
                         )
@@ -449,6 +463,8 @@ class PropertyDetailsPage extends StatefulWidget {
 }
 
 class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
+  final storage = FlutterSecureStorage();
+
   List<Item> data = [];
   String projectName = '';
   String projectLocation = '';
@@ -472,8 +488,15 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
   }
 
   Future<void> _fetchPropertyDetails() async {
-    final response = await http.get(Uri.parse(
-        'http://10.0.2.2:9001/api/store_individual_data?project_id=${widget.projectID}'));
+    final accessToken = await storage.read(key: 'access_token');
+
+    final headers = {
+      'Authorization': 'Token $accessToken',
+    };
+    final response = await http.get(
+        Uri.parse(
+            'https://b6d9-115-98-217-224.ngrok-free.app/api/store_individual_data?project_id=${widget.projectID}'),
+        headers: headers);
 
     if (response.statusCode == 200) {
       dynamic jsonResponse = jsonDecode(response.body);
@@ -515,8 +538,15 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
 
   Future<void> _deletePropertyDetails() async {
     print('deletedddddd');
-    final response = await http.get(Uri.parse(
-        'http://10.0.2.2:9001/api/delete_individual_data?project_id=${widget.projectID}'));
+    final accessToken = await storage.read(key: 'access_token');
+
+    final headers = {
+      'Authorization': 'Token $accessToken',
+    };
+    final response = await http.get(
+        Uri.parse(
+            'https://b6d9-115-98-217-224.ngrok-free.app/api/delete_individual_data?project_id=${widget.projectID}'),
+        headers: headers);
     // Add this to refresh the previous page data
     // Navigator.push(
     //   context,
@@ -533,22 +563,115 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
   }
 
   Future<void> _downloadPropertyDetails() async {
-    print('deletedddddd');
-    final response = await http.get(Uri.parse(
-        'http://10.0.2.2:9001/api/store_individual_data?project_id=${widget.projectID}&is_download=true'));
+    final accessToken = await storage.read(key: 'access_token');
+    final headers = {
+      'Authorization': 'Token $accessToken',
+    };
 
-    if (response.statusCode == 200) {
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/project_details.pdf');
-      await file.writeAsBytes(response.bodyBytes);
+    final url =
+        'https://b6d9-115-98-217-224.ngrok-free.app/api/store_individual_data?project_id=${widget.projectID}&is_download=true';
 
-      // Optionally open the PDF file using a PDF viewer plugin
-      // OpenFile.open(file.path);
+    final uri = Uri.parse(url);
 
-      print('PDF downloaded to: ${file.path}');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication, // Use external application mode
+      );
     } else {
-      print('Failed to download PDF');
+      print('Could not launch $url');
     }
+
+    // final response = await http.get(
+    //     Uri.parse(
+    //         'https://b6d9-115-98-217-224.ngrok-free.app/api/store_individual_data?project_id=ace82a9c-02e4-41c5-af7d-03f9dd7a5970&is_download=true'),
+    //     headers: headers);
+
+    // // if (response.statusCode == 200) {
+    // //   final directory = await getApplicationDocumentsDirectory();
+    // //   final file = File('${directory.path}/project_details.pdf');
+    // //   await file.writeAsBytes(response.bodyBytes);
+    // //   OpenFile.open(file.path);
+    // //   print('PDF downloaded to: ${file.path}');
+    // // } else {
+    // //   print('Failed to download PDF');
+    // // }
+    // if (response.statusCode == 200) {
+    //   final directory = await getApplicationDocumentsDirectory();
+    //   final file = File('${directory.path}/project_details.pdf');
+    //   await file.writeAsBytes(response.bodyBytes);
+    //   print('PDF downloaded to: ${file.path}');
+    //   _showDownloadModal(file.path);
+    // } else {
+    //   print('Failed to download PDF');
+    // }
+  }
+
+  void _showDownloadModal(String filePath) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('File Downloaded'),
+          content: Text(
+              'The PDF has been downloaded successfully. Do you want to open or download it?'),
+          actions: [
+            // TextButton(
+            //   onPressed: () {
+            //     OpenFile.open(filePath);
+            //     Navigator.of(context).pop();
+            //   },
+            //   child: Text('Open'),
+            // ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _showDownloadOptions(filePath);
+              },
+              child: Text('Download'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showDownloadOptions(String filePath) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Save PDF to:'),
+              ListTile(
+                leading: Icon(Icons.folder),
+                title: Text('Documents Folder'),
+                onTap: () async {
+                  // Handle saving to a different location if needed
+                  print('Saved to Documents Folder');
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.download),
+                title: Text('Download Folder'),
+                onTap: () async {
+                  // Move the file to the download folder
+                  final downloadsDirectory = await getDownloadsDirectory();
+                  final newFile = await File(filePath)
+                      .copy('${downloadsDirectory!.path}/project_details.pdf');
+                  print('Saved to Download Folder: ${newFile.path}');
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   final Map<String, IconData> iconMapping = {
@@ -579,8 +702,8 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => RoomDetailsEditForm(
-                          projectID: widget.projectID)
+                      builder: (context) =>
+                          RoomDetailsEditForm(projectID: widget.projectID)
                       // PropertyDetailsEditForm(),
                       ),
                 );

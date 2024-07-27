@@ -5,6 +5,11 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 void showFilePreviewDialog(
     BuildContext context, String? title, String? fileUrl) {
   String formattedUrl = fileUrl ?? ''; // Ensure fileUrl is not null
+  double screenWidth = MediaQuery.of(context).size.width;
+  double screenHeight = MediaQuery.of(context).size.height;
+  double imageWidth = screenWidth * 0.80;
+  double imageHeight = screenHeight * 0.60;
+
   print('fileUrlfileUrlfileUrl87654 $fileUrl');
   showDialog(
     context: context,
@@ -18,7 +23,15 @@ void showFilePreviewDialog(
                 (fileUrl.endsWith('.jpg') ||
                     fileUrl.endsWith('.jpeg') ||
                     fileUrl.endsWith('.png')))
-              Image.network(formattedUrl),
+              // Image.network(formattedUrl),
+              SizedBox(
+                height: imageHeight, // Set the desired height
+                width: imageWidth, // Set the desired width
+                child: Image.network(
+                  formattedUrl,
+                  fit: BoxFit.cover, // Optionally, you can set the fit property
+                ),
+              ),
             if (fileUrl != null && fileUrl.endsWith('.pdf'))
               Container(
                 width: double.maxFinite,

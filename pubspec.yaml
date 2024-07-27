@@ -58,6 +58,10 @@ dependencies:
   carousel_slider: ^4.0.0
   filter_list: ^1.0.3
   dropdown_search: ^5.0.3
+  # open_file: ^3.3.2
+  url_launcher: ^6.0.20
+
+
 
 
 

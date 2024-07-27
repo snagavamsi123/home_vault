@@ -15,7 +15,7 @@ class IntroContextPage extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
             Text(
-              "Manage your tasks easily",
+              "Manage your work easily",
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
             ),

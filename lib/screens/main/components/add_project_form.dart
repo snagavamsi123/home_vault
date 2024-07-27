@@ -2139,10 +2139,10 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
     if (_formKey.currentState!.validate()) {
       final request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://10.0.2.2:9001/api/store_data'),
+        Uri.parse('https://b6d9-115-98-217-224.ngrok-free.app/api/store_data'),
       );
 
-      request.headers['Authorization'] = 'Bearer $accessToken';
+      request.headers['Authorization'] = 'Token $accessToken';
       print('message ${_streetNameController.text}');
       request.fields['project_name'] = _projectNameController.text;
       request.fields['street_name'] = _streetNameController.text;
@@ -2259,14 +2259,14 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
                   _pickFiles();
                 },
               ),
-              ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Upload from Camera'),
-                onTap: () {
-                  Navigator.pop(context);
-                  _pickImageFromCamera();
-                },
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.camera_alt),
+              //   title: Text('Upload from Camera'),
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     _pickImageFromCamera();
+              //   },
+              // ),
             ],
           ),
         );

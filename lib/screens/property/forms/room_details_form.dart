@@ -141,14 +141,14 @@ class _RoomFormState extends State<RoomForm> {
                   _pickFiles();
                 },
               ),
-              ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Upload from Camera'),
-                onTap: () {
-                  Navigator.pop(context);
-                  _pickImageFromCamera();
-                },
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.camera_alt),
+              //   title: Text('Upload from Camera'),
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     _pickImageFromCamera();
+              //   },
+              // ),
             ],
           ),
         );
@@ -378,9 +378,10 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
     print('Submitted data: $_formData');
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://10.0.2.2:9001/api/store_individual_data'),
+      Uri.parse(
+          'https://b6d9-115-98-217-224.ngrok-free.app/api/store_individual_data'),
     );
-    // request.headers['Authorization'] = 'Bearer $accssToken';
+    // request.headers['Authorization'] = 'Token $accssToken';
     final _initialData = {
       "totalFloors": widget.initialFloors,
       "totalBedrooms": widget.initialBedrooms,
@@ -389,9 +390,10 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
       "totalHalls": widget.initialHalls,
       "totalGarages": widget.initialGarages
     };
+    // final accessToken = await storage.read(key: 'access_token');
     final accessToken = await storage.read(key: 'access_token');
-    print('accessTokenaccessToken $accessToken');
-    request.headers['Authorization'] = 'Bearer $accessToken';
+    print('accessTokenaccessToken11212 $accessToken');
+    request.headers['Authorization'] = 'Token $accessToken';
     request.fields['initial_data'] = jsonEncode(_initialData);
     request.fields['project_id'] = widget.projectID;
     request.fields['form_data'] = jsonEncode(_formData.map((form) {

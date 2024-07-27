@@ -10,6 +10,7 @@ import 'package:home_vault/screens/dashboard/components/custom_button.dart';
 import 'package:home_vault/screens/dashboard/components/initial_intro_page.dart';
 import 'package:home_vault/screens/dashboard/components/card_design.dart';
 import 'package:home_vault/screens/dashboard/components/recent_files.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class RenderDashboards extends StatefulWidget {
   const RenderDashboards({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class RenderDashboards extends StatefulWidget {
 
 class _RenderDashboardsState extends State<RenderDashboards> {
   List<Map<String, dynamic>> data = [];
-
+  final storage = FlutterSecureStorage();
   @override
   void initState() {
     super.initState();
@@ -29,14 +30,23 @@ class _RenderDashboardsState extends State<RenderDashboards> {
 
   Future<void> fetchData() async {
     try {
-      final response = await http
-          .get(Uri.parse('http://10.0.2.2:9001/api/fetch_recent_data'));
+      final accessToken = await storage.read(key: 'access_token');
+
+      final headers = {
+        'Authorization': 'Token $accessToken',
+      };
+      final response = await http.get(
+        Uri.parse(
+            'https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_recent_data'),
+        headers: headers,
+      );
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
         setState(() {
           data = List<Map<String, dynamic>>.from(responseData.map((item) => {
                 'name': item['project_name'],
-                'imageurl': "http://10.0.2.2:9001/static_media/download.jpeg",
+                'imageurl':
+                    "https://b6d9-115-98-217-224.ngrok-free.app/static_media/download.jpeg",
                 'area': item['street_name'],
                 'price': item['expenses'],
                 'projectID': item['records_id'],

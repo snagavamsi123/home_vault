@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:home_vault/screens/property/propertyPage.dart';
 import 'package:home_vault/screens/property/propertyPage2.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class DataModel {
   final int id;
@@ -70,6 +71,7 @@ class _PaginatedDataTableViewState extends State<PaginatedDataTableView> {
   int _totalPages = 1;
   List<DataModel> _data = [];
   bool _isLoading = false;
+  final storage = FlutterSecureStorage();
 
   @override
   void initState() {
@@ -82,8 +84,15 @@ class _PaginatedDataTableViewState extends State<PaginatedDataTableView> {
       _isLoading = true;
     });
 
-    final response = await http.get(Uri.parse(
-        'http://10.0.2.2:9001/api/fetch_data_pagination?page=$_currentPage&size=$_pageSize'));
+    final accessToken = await storage.read(key: 'access_token');
+    final headers = {
+      "Authorization": "Token $accessToken",
+    };
+
+    final response = await http.get(
+        Uri.parse(
+            'https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_data_pagination?page=$_currentPage&size=$_pageSize'),
+        headers: headers);
 
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);

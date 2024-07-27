@@ -17,7 +17,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final String loginUrl = 'http://10.0.2.2:9001/api/token/';
+  final String loginUrl =
+      'https://b6d9-115-98-217-224.ngrok-free.app/api/token/';
   final storage = FlutterSecureStorage();
 
   @override
@@ -82,10 +83,11 @@ class _LoginPageState extends State<LoginPage> {
 // currently commented
   Future<bool> verifyAccessToken(String accessToken) async {
     print('calling verify aopiiiipipipi');
-    final verifyUrl = 'http://10.0.2.2:9001/api/verify-token/';
+    final verifyUrl =
+        'https://b6d9-115-98-217-224.ngrok-free.app/api/verify-token/';
     final response = await http.post(
       Uri.parse(verifyUrl),
-      headers: {'Authorization': 'Bearer $accessToken'},
+      headers: {'Authorization': 'Token $accessToken'},
     );
 
     return response.statusCode == 200;
@@ -112,14 +114,15 @@ class _LoginPageState extends State<LoginPage> {
       final resp = jsonDecode(response.body);
       print('respresp*********** $resp');
       final access_token = resp['access'];
-      final refresh_token = resp['refresh'];
+      final resp_username = resp['username'];
+      // final refresh_token = resp['refresh'];
       // await storage.write(key: 'access_token', value: access_token);
       // await storage.write(key: 'refresh_token', value: refresh_token);
       try {
         await storage.write(key: 'access_token', value: access_token);
-        await storage.write(key: 'refresh_token', value: refresh_token);
+        await storage.write(key: 'username', value: resp_username);
         print(
-            'Error writing tokens to storage ++++||||||>>>>>refresh_tokenacess: $access_token $refresh_token');
+            'aaa writing tokens to storage ++++||||||>>>>>refresh_tokenacess: $access_token');
       } catch (e) {
         print('Error writing tokens to storage ++++||||||>>>>>: $e');
       }

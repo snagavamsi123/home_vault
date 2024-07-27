@@ -715,9 +715,9 @@
 //     print('messageHAHAHAHAHAH');
 //     final request = http.MultipartRequest(
 //       'POST',
-//       Uri.parse('http://10.0.2.2:9001/api/store_rooms_data'),
+//       Uri.parse('https://b6d9-115-98-217-224.ngrok-free.app/api/store_rooms_data'),
 //     );
-//     // request.headers['Authorization'] = 'Bearer $accssToken';
+//     // request.headers['Authorization'] = 'Token $accssToken';
 //     final _initialData = {
 //       "totalFloors": widget.initialFloors,
 //       "totalBedrooms": widget.initialBedrooms,

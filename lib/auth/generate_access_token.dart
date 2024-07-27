@@ -8,7 +8,8 @@ class GenerateAccessToken {
     String? refreshToken = await storage.read(key: 'refresh_token');
 
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:9001/api/token/refresh/'),
+      Uri.parse(
+          'https://b6d9-115-98-217-224.ngrok-free.app/api/token/refresh/'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'refresh': refreshToken}),
     );
@@ -16,6 +17,7 @@ class GenerateAccessToken {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       await storage.write(key: 'access_token', value: data['access']);
+      await storage.write(key: 'username', value: data['name']);
       return 'success';
     } else {
       return 'failed';

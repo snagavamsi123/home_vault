@@ -50,7 +50,7 @@
 
 //   Future<void> fetchData() async {
 //     final response =
-//         await http.get(Uri.parse('http://10.0.2.2:9001/api/fetch_recent_data'));
+//         await http.get(Uri.parse('https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_recent_data'));
 //     if (response.statusCode == 200) {
 //       final List<dynamic> responseData = json.decode(response.body);
 //       print('Response Data: $responseData'); // Enhanced logging
@@ -207,7 +207,7 @@
 
 //   Future<void> fetchData() async {
 //     final response =
-//         await http.get(Uri.parse('http://10.0.2.2:9001/api/fetch_recent_data'));
+//         await http.get(Uri.parse('https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_recent_data'));
 //     if (response.statusCode == 200) {
 //       final List<dynamic> responseData = json.decode(response.body);
 //       setState(() {
@@ -438,8 +438,8 @@ class _OldRecentFilesState extends State<OldRecentFiles> {
   }
 
   Future<void> fetchData() async {
-    final response =
-        await http.get(Uri.parse('http://10.0.2.2:9001/api/fetch_recent_data'));
+    final response = await http.get(Uri.parse(
+        'https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_recent_data'));
     if (response.statusCode == 200) {
       final List<dynamic> responseData = json.decode(response.body);
       setState(() {
@@ -498,7 +498,8 @@ class _OldRecentFilesState extends State<OldRecentFiles> {
 }
 
 DataRow OldRecentFileDataRow(BuildContext context, OldRecentFile fileInfo) {
-  String formattedUrl = "http://10.0.2.2:9001${fileInfo.file_url}";
+  String formattedUrl =
+      "https://b6d9-115-98-217-224.ngrok-free.app${fileInfo.file_url}";
   return DataRow(
     cells: [
       DataCell(

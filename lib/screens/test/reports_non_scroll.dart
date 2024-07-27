@@ -75,7 +75,7 @@ class _ReportsContentState extends State<ReportsContent> {
     });
     try {
       final response = await http.get(Uri.parse(
-          'http://10.0.2.2:9001/api/fetch_recent_data?page=$_pageNumber&size=$_pageSize'));
+          'https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_recent_data?page=$_pageNumber&size=$_pageSize'));
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
         final newFiles = DateWiseFiles.fromJsonList(jsonList);

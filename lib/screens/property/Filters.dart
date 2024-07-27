@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:home_vault/screens/property/PropertiesDataTable.dart';
 import 'package:home_vault/screens/property/propertyPage2.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class FiltersPage extends StatefulWidget {
   @override
@@ -22,7 +23,8 @@ class _FiltersPageState extends State<FiltersPage> {
 
   Future<bool> SearchDetails() async {
     print('calling verify aopiiiipipipi');
-    final verifyUrl = 'http://10.0.2.2:9001/api/search_details/';
+    final verifyUrl =
+        'https://b6d9-115-98-217-224.ngrok-free.app/api/search_details/';
 
     final Map<String, dynamic> enteredData = {
       'name': nameController.text,
@@ -43,10 +45,15 @@ class _FiltersPageState extends State<FiltersPage> {
             }
           : null,
     };
+    final storage = FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'access_token');
 
     final response = await http.post(
       Uri.parse(verifyUrl),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": "Token $accessToken",
+      },
       body: jsonEncode(enteredData),
     );
 
@@ -201,30 +208,30 @@ class _FiltersPageState extends State<FiltersPage> {
               ],
             ),
             SizedBox(height: 20),
-            Text('Mileage'),
-            RangeSlider(
-              values: mileageRange,
-              min: 0,
-              max: 10000,
-              divisions: 20,
-              labels: RangeLabels(
-                '${mileageRange.start.round()} mi',
-                '${mileageRange.end.round()} mi',
-              ),
-              onChanged: (RangeValues values) {
-                setState(() {
-                  mileageRange = values;
-                });
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('0 - 5,000'),
-                Text('5,000 - 10,000'),
-              ],
-            ),
-            SizedBox(height: 20),
+            // Text('Mileage'),
+            // RangeSlider(
+            //   values: mileageRange,
+            //   min: 0,
+            //   max: 10000,
+            //   divisions: 20,
+            //   labels: RangeLabels(
+            //     '${mileageRange.start.round()} mi',
+            //     '${mileageRange.end.round()} mi',
+            //   ),
+            //   onChanged: (RangeValues values) {
+            //     setState(() {
+            //       mileageRange = values;
+            //     });
+            //   },
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text('0 - 5,000'),
+            //     Text('5,000 - 10,000'),
+            //   ],
+            // ),
+            // SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
