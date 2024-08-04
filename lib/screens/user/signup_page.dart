@@ -12,9 +12,9 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  // final String registerUrl = 'https://b6d9-115-98-217-224.ngrok-free.app/api/register/';
+  // final String registerUrl = 'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/register/';
   final String registerUrl =
-      'https://b6d9-115-98-217-224.ngrok-free.app/api/register/';
+      'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/register/';
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -211,7 +211,7 @@ class _SignupPageState extends State<SignupPage> {
                     const Text("Already have an account?"),
                     TextButton(
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>

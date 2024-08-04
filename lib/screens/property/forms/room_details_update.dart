@@ -376,7 +376,7 @@ class _RoomDetailsEditFormState extends State<RoomDetailsEditForm> {
     final headers = {"Authorization": "Token $accessToken"};
     final response = await http.get(
         Uri.parse(
-            'https://b6d9-115-98-217-224.ngrok-free.app/api/edit_individual_data?record_id=${widget.projectID}'),
+            'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/edit_individual_data?record_id=${widget.projectID}'),
         headers: headers);
 
     if (response.statusCode == 200) {
@@ -481,7 +481,7 @@ class _RoomDetailsEditFormState extends State<RoomDetailsEditForm> {
 
   Future<void> saveFormData() async {
     // Save logic here
-    // final url = Uri.parse("https://b6d9-115-98-217-224.ngrok-free.app/api/edit_individual_data");
+    // final url = Uri.parse("https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/edit_individual_data");
     // 'http://10.0.2.2:8000/property_module/project/${widget.projectID}/rooms/');
     // final token = await storage.read(key: 'jwt_token');
     // final headers = {
@@ -491,7 +491,7 @@ class _RoomDetailsEditFormState extends State<RoomDetailsEditForm> {
     final request = http.MultipartRequest(
       'POST',
       Uri.parse(
-          'https://b6d9-115-98-217-224.ngrok-free.app/api/edit_individual_data'),
+          'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/edit_individual_data'),
     );
     final accessToken = await storage.read(key: 'access_token');
 
@@ -523,7 +523,7 @@ class _RoomDetailsEditFormState extends State<RoomDetailsEditForm> {
     //       final response = await http.get(Uri.parse(item));
     //       if (response.statusCode == 200) {
     //         final fileName = item.split('/').last;
-    //         final tempFile = File('https://b6d9-115-98-217-224.ngrok-free.app/$fileName');
+    //         final tempFile = File('https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/$fileName');
     //         await tempFile.writeAsBytes(response.bodyBytes);
 
     //         request.files.add(await http.MultipartFile.fromPath(

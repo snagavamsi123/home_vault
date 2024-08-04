@@ -14,6 +14,7 @@ import 'package:home_vault/auth/generate_access_token.dart';
 import 'package:home_vault/screens/main/main_screen.dart';
 import 'package:home_vault/screens/property/forms/property_details_form.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:home_vault/screens/main/landing_page.dart';
 
 List<String> cities = [
   "Alabama",
@@ -2139,7 +2140,8 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
     if (_formKey.currentState!.validate()) {
       final request = http.MultipartRequest(
         'POST',
-        Uri.parse('https://b6d9-115-98-217-224.ngrok-free.app/api/store_data'),
+        Uri.parse(
+            'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/store_data'),
       );
 
       request.headers['Authorization'] = 'Token $accessToken';
@@ -2210,6 +2212,29 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
                     // PropertyDetailsForm(record_cust_id)),
                     PropertyDetailsForm(projectID: record_cust_id),
               ));
+        } else if (actionType == "just_save_go_back") {
+          _formKey.currentState!.reset();
+          _projectNameController.clear();
+          _streetNameController.clear();
+          _houseNumberController.clear();
+          final _cityNameController = null;
+
+          _expensesController.clear();
+          _dateOfRenovation.clear();
+          _descriptionController.clear();
+          _invoiceFiles.clear();
+          await removeFiles();
+          //  Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) =>
+          //           PropertyDetailsForm(projectID: record_cust_id),
+          //     ));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LandingPage()),
+          );
+          // Navigator.pop(context, true);
         } else if (actionType == 'save_with_add_new') {
           _formKey.currentState!.reset();
           _projectNameController.clear();
@@ -2279,7 +2304,7 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
     return Scaffold(
       backgroundColor: secondaryColor,
       appBar: AppBar(
-        title: Text('New Renovation Record'),
+        title: Text('New Project'),
       ),
       body: Form(
         key: _formKey,
@@ -2317,7 +2342,6 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
                         },
                       ),
                       SizedBox(height: 10),
-
                       DropdownSearch<String>(
                         popupProps: PopupProps.menu(
                           showSearchBox: true,
@@ -2359,7 +2383,6 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
                           return cities;
                         },
                       ),
-
                       SizedBox(height: 10),
                       TextFormField(
                         controller: _houseNumberController,
@@ -2465,66 +2488,22 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
                         },
                         readOnly: true,
                         decoration: InputDecoration(
-                            // labelText:
-                            //     'Description of Fixtures and Articles Added',
                             labelText: _invoiceFiles.isNotEmpty
                                 ? '${_invoiceFiles.length} files selected'
                                 : 'Upload the files',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            labelStyle: TextStyle(fontSize: 12)
-                            // border: OutlineInputBorder(
-                            //   borderRadius: BorderRadius.circular(10),
-                            // ),
-                            // hintText: 'Tap to upload',
-                            // floatingLabelAlignment: FloatingLabelAlignment.center,
-                            // hintStyle: TextStyle(fontSize: 12),
-                            ),
+                            labelStyle: TextStyle(fontSize: 12)),
                       ),
-                      // if (_invoiceFiles.isNotEmpty)
-                      //   Padding(
-                      //     padding: const EdgeInsets.all(8.0),
-                      //     child: Text('${_invoiceFiles.length} files selected'),
-                      //   ),
-                      // ElevatedButton(
-                      //   onPressed: _pickInvoices,
-                      //   child: Text('Upload Invoices/Receipts'),
-                      //   style: ElevatedButton.styleFrom(
-                      //     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //     ),
-                      //   ),
-                      // ),
-                      // if (_invoiceFiles.isNotEmpty)
-                      //   Padding(
-                      //     padding: const EdgeInsets.all(8.0),
-                      //     child: Text('${_invoiceFiles.length} files selected'),
-                      //   ),
-                      // ElevatedButton(
-                      //   onPressed: _pickPhotos,
-                      //   child: Text('Upload Photos'),
-                      //   style: ElevatedButton.styleFrom(
-                      //     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //     ),
-                      //   ),
-                      // ),
-                      // if (_photos.isNotEmpty)
-                      //   Padding(
-                      //     padding: const EdgeInsets.all(8.0),
-                      //     child: Text('${_photos.length} photos selected'),
-                      //   ),
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            // onPressed: _saveRecord(''),
-                            onPressed: () => _saveRecord('just_save', false),
-                            child: Text('Next'),
+                            onPressed: () =>
+                                _saveRecord('just_save_go_back', false),
+                            child: Text('<-  Save'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green[900],
                               padding: EdgeInsets.symmetric(
@@ -2534,7 +2513,20 @@ class _RenovationFormPageState extends State<RenovationFormPage> {
                               ),
                             ),
                           ),
-                          // SizedBox(width: 20),
+                          SizedBox(width: 10),
+                          ElevatedButton(
+                            // onPressed: _saveRecord(''),
+                            onPressed: () => _saveRecord('just_save', false),
+                            child: Text('Save and continue ->'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green[900],
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 30),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
                           // ElevatedButton(
                           //   // onPressed: _saveRecord('asas'),
                           //   onPressed: () =>

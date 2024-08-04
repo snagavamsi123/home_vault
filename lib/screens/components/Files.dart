@@ -3,7 +3,7 @@ String _getIcon(String fileType, String file_url) {
     case 'jpg':
     case 'jpeg':
     case 'png':
-      return "https://b6d9-115-98-217-224.ngrok-free.app$file_url";
+      return "https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app$file_url";
     // "assets/icons/media_file.svg";
     case 'pdf':
       return "assets/icons/pdf_file.svg";
@@ -37,9 +37,10 @@ class Files {
         json['file_type'],
         json['file_url'],
       ),
-      fileUrl: "https://b6d9-115-98-217-224.ngrok-free.app${json['file_url']}",
+      fileUrl:
+          "https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app${json['file_url']}",
       //
-      //  String formattedUrl = "https://b6d9-115-98-217-224.ngrok-free.app${fileInfo.file_url}";
+      //  String formattedUrl = "https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app${fileInfo.file_url}";
       isFolder: false,
     );
   }

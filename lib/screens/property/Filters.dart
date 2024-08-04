@@ -24,7 +24,7 @@ class _FiltersPageState extends State<FiltersPage> {
   Future<bool> SearchDetails() async {
     print('calling verify aopiiiipipipi');
     final verifyUrl =
-        'https://b6d9-115-98-217-224.ngrok-free.app/api/search_details/';
+        'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/search_details/';
 
     final Map<String, dynamic> enteredData = {
       'name': nameController.text,
@@ -60,9 +60,9 @@ class _FiltersPageState extends State<FiltersPage> {
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
 
-      print('message--->> $jsonData');
+      print('message--->> ${jsonData}');
 
-      final dataList = jsonData['data'] as List<dynamic>;
+      final dataList = jsonData as List<dynamic>;
       final List<DataModel> newData =
           dataList.map((item) => DataModel.fromJson(item)).toList();
 

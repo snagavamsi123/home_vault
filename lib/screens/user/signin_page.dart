@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final String loginUrl =
-      'https://b6d9-115-98-217-224.ngrok-free.app/api/token/';
+      'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/token/';
   final storage = FlutterSecureStorage();
 
   @override
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<bool> verifyAccessToken(String accessToken) async {
     print('calling verify aopiiiipipipi');
     final verifyUrl =
-        'https://b6d9-115-98-217-224.ngrok-free.app/api/verify-token/';
+        'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/verify-token/';
     final response = await http.post(
       Uri.parse(verifyUrl),
       headers: {'Authorization': 'Token $accessToken'},
@@ -136,8 +136,10 @@ class _LoginPageState extends State<LoginPage> {
       final err = error['detail'];
       final password_err = error['password'];
       final username_err = error['username'];
+      final mainerr = error['error'];
 
       String? err_context;
+      print('messageerrerrerrerr $err');
 
       if (err != null) {
         err_context = err;
@@ -145,6 +147,8 @@ class _LoginPageState extends State<LoginPage> {
         err_context = password_err[0];
       } else if (username_err != null && username_err.isNotEmpty) {
         err_context = username_err[0];
+      } else if (mainerr != null && mainerr.isNotEmpty) {
+        err_context = mainerr;
       }
 
       print("errorerror $error");
@@ -180,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               _header(context),
               _inputField(context),
-              _forgotPassword(context),
+              // _forgotPassword(context),
               _signup(context),
             ],
           ),

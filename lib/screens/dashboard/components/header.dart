@@ -180,7 +180,7 @@ class _SearchFieldState extends State<SearchField> {
 
   Future<List<Map<String, dynamic>>> fetchSearchResults(String query) async {
     final verifyUrl =
-        'https://b6d9-115-98-217-224.ngrok-free.app/api/search_details/';
+        'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/search_details/';
     final enteredData = {'name': query, 'is_top_search': true};
     final accessToken = await storage.read(key: 'access_token');
 
@@ -202,8 +202,15 @@ class _SearchFieldState extends State<SearchField> {
   }
 
   OverlayEntry? _overlayEntry;
+  void _hideOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
+  }
 
   void _showOverlay(BuildContext context, List<Map<String, dynamic>> results) {
+    _hideOverlay();
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
     final offset = renderBox.localToGlobal(Offset.zero);
@@ -224,8 +231,9 @@ class _SearchFieldState extends State<SearchField> {
                 title: Text(result['project_name']),
                 onTap: () {
                   _controller.text = result['project_name'];
-                  _overlayEntry?.remove();
-                  _overlayEntry = null;
+                  // _overlayEntry?.remove();
+                  // _overlayEntry = null;
+                  _hideOverlay();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -250,12 +258,26 @@ class _SearchFieldState extends State<SearchField> {
       children: [
         TextField(
           onChanged: (value) {
-            fetchSearchResults(value).then((results) {
-              if (_overlayEntry != null) {
-                _overlayEntry!.remove();
-              }
-              _showOverlay(context, results);
-            });
+            if (value.isEmpty) {
+              _hideOverlay();
+            } else {
+              fetchSearchResults(value).then((results) {
+                setState(() {
+                  _showOverlay(context, results);
+                });
+              });
+            }
+            // fetchSearchResults(value).then((results) {
+            //   print('messagevalue $value');
+            //   if (_overlayEntry != null) {
+            //     // _overlayEntry!.remove();
+            //     _hideOverlay();
+            //   }
+            //   if (value.length > 0) {
+            //     _hideOverlay();
+            //   }
+            //   _showOverlay(context, results);
+            // });
           },
           controller: _controller,
           decoration: InputDecoration(

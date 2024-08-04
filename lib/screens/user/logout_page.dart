@@ -268,7 +268,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> fetchData() async {
     final accessToken = await storage.read(key: 'access_token');
     final response = await http.get(
-      Uri.parse('https://b6d9-115-98-217-224.ngrok-free.app/profile'),
+      Uri.parse(
+          'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/profile'),
       headers: {
         'Authorization': 'Token $accessToken',
       },

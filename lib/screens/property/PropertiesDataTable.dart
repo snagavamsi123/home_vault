@@ -91,7 +91,7 @@ class _PaginatedDataTableViewState extends State<PaginatedDataTableView> {
 
     final response = await http.get(
         Uri.parse(
-            'https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_data_pagination?page=$_currentPage&size=$_pageSize'),
+            'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/fetch_data_pagination?page=$_currentPage&size=$_pageSize'),
         headers: headers);
 
     if (response.statusCode == 200) {

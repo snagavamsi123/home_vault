@@ -333,16 +333,16 @@ class _AccordionWidgetState extends State<AccordionWidget> {
                                 return GestureDetector(
                                   onTap: () {
                                     showFilePreviewDialog(context, "preview",
-                                        "https://b6d9-115-98-217-224.ngrok-free.app$file");
+                                        "https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app$file");
 
-                                    // ImagePreviewScreen(imageUrl: 'https://b6d9-115-98-217-224.ngrok-free.app$file')
+                                    // ImagePreviewScreen(imageUrl: 'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app$file')
                                   },
                                   child: Image.network(
-                                      'https://b6d9-115-98-217-224.ngrok-free.app$file'),
+                                      'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app$file'),
                                 );
                               },
 
-                              // onclick ImagePreviewScreen(imageUrl: 'https://b6d9-115-98-217-224.ngrok-free.app$file'),
+                              // onclick ImagePreviewScreen(imageUrl: 'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app$file'),
                             );
                           }).toList(),
                         )
@@ -495,7 +495,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
     };
     final response = await http.get(
         Uri.parse(
-            'https://b6d9-115-98-217-224.ngrok-free.app/api/store_individual_data?project_id=${widget.projectID}'),
+            'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/store_individual_data?project_id=${widget.projectID}'),
         headers: headers);
 
     if (response.statusCode == 200) {
@@ -545,7 +545,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
     };
     final response = await http.get(
         Uri.parse(
-            'https://b6d9-115-98-217-224.ngrok-free.app/api/delete_individual_data?project_id=${widget.projectID}'),
+            'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/delete_individual_data?project_id=${widget.projectID}'),
         headers: headers);
     // Add this to refresh the previous page data
     // Navigator.push(
@@ -564,12 +564,13 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
 
   Future<void> _downloadPropertyDetails() async {
     final accessToken = await storage.read(key: 'access_token');
+    final username = await storage.read(key: 'username');
     final headers = {
       'Authorization': 'Token $accessToken',
     };
 
     final url =
-        'https://b6d9-115-98-217-224.ngrok-free.app/api/store_individual_data?project_id=${widget.projectID}&is_download=true';
+        'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/store_individual_data?project_id=${widget.projectID}&is_download=true&username=${username}';
 
     final uri = Uri.parse(url);
 
@@ -584,7 +585,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
 
     // final response = await http.get(
     //     Uri.parse(
-    //         'https://b6d9-115-98-217-224.ngrok-free.app/api/store_individual_data?project_id=ace82a9c-02e4-41c5-af7d-03f9dd7a5970&is_download=true'),
+    //         'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/store_individual_data?project_id=ace82a9c-02e4-41c5-af7d-03f9dd7a5970&is_download=true'),
     //     headers: headers);
 
     // // if (response.statusCode == 200) {

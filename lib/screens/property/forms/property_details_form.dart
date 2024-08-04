@@ -29,10 +29,38 @@ class _PropertyDetailsFormState extends State<PropertyDetailsForm> {
     "Halls",
     "Garages",
     "Bathrooms",
-    "Swimming pools"
+    // "Swimming pools"
   ];
   final List<String> selectedOptions = [];
   String? _selectedItemNewww;
+
+  void _removeSelectedDetails(typee) {
+    setState(() {
+      if (typee == "Floors") {
+        _floorsController.text = "0";
+      } else if (typee == "Bedrooms") {
+        _bedroomsController.text = "0";
+      } else if (typee == "Kitchens") {
+        _kitchensController.text = "0";
+      } else if (typee == "Halls") {
+        _hallsController.text = "0";
+      } else if (typee == "Garages") {
+        _garagesController.text = "0";
+      } else if (typee == "Bathrooms") {
+        _bathroomsController.text = "0";
+//
+// _kitchensController
+// _hallsController
+      } else if (typee == "Swimming pools") {
+        _bedroomsController.text = "0";
+      }
+      selectedOptions.remove(typee);
+      TypeOptions.add(typee);
+      _selectedTypeOptionsController.text = '';
+      _selectedItemNewww = null;
+    });
+  }
+
   void _selectOptionDetails() {
     final dataaa = _selectedTypeOptionsController.text;
     print('messagedataaa $dataaa');
@@ -138,123 +166,337 @@ class _PropertyDetailsFormState extends State<PropertyDetailsForm> {
                   ],
                 ),
                 if (selectedOptions.contains('Floors')) SizedBox(height: 20),
+                // if (selectedOptions.contains('Floors'))
+                //   TextFormField(
+                //     controller: _floorsController,
+                //     decoration: InputDecoration(
+                //       labelText: 'Number of Floors',
+                //       labelStyle: TextStyle(fontSize: 12),
+                //       border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //     ),
+                //     keyboardType: TextInputType.number,
+                //     validator: (value) {
+                //       if (value == null || value.isEmpty) {
+                //         return 'Please enter a number';
+                //       }
+                //       return null;
+                //     },
+                //   ),
                 if (selectedOptions.contains('Floors'))
-                  TextFormField(
-                    controller: _floorsController,
-                    decoration: InputDecoration(
-                      labelText: 'Number of Floors',
-                      labelStyle: TextStyle(fontSize: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _floorsController,
+                              decoration: InputDecoration(
+                                labelText: 'Number of Floors',
+                                labelStyle: TextStyle(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              // Perform any action needed when delete is pressed, e.g., clear the field
+                              _bathroomsController.clear();
+                              _removeSelectedDetails("Floors");
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a number';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                 if (selectedOptions.contains('Bedrooms')) SizedBox(height: 20),
                 if (selectedOptions.contains('Bedrooms'))
-                  TextFormField(
-                    controller: _bedroomsController,
-                    // decoration: InputDecoration(labelText: 'Number of Bedrooms'),
-                    decoration: InputDecoration(
-                      labelText: 'Number of Floors',
-                      labelStyle: TextStyle(fontSize: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _bedroomsController,
+                              decoration: InputDecoration(
+                                labelText: 'Number of Bedrooms',
+                                labelStyle: TextStyle(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              _removeSelectedDetails("Bedrooms");
+                              _bedroomsController.clear();
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a number';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
+                // TextFormField(
+                //   controller: _bedroomsController,
+                //   // decoration: InputDecoration(labelText: 'Number of Bedrooms'),
+                //   decoration: InputDecoration(
+                //     labelText: 'Number of Bedrooms',
+                //     labelStyle: TextStyle(fontSize: 12),
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //   ),
+                //   keyboardType: TextInputType.number,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Please enter a number';
+                //     }
+                //     return null;
+                //   },
+                // ),
                 if (selectedOptions.contains('Bathrooms')) SizedBox(height: 20),
+                // if (selectedOptions.contains('Bathrooms'))
+                //   TextFormField(
+                //     controller: _bathroomsController,
+                //     // decoration: InputDecoration(labelText: 'Number of Bathrooms'),
+                //     decoration: InputDecoration(
+                //       labelText: 'Number of Bathrooms',
+                //       labelStyle: TextStyle(fontSize: 12),
+                //       border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //     ),
+                //     keyboardType: TextInputType.number,
+                //     validator: (value) {
+                //       if (value == null || value.isEmpty) {
+                //         return 'Please enter a number';
+                //       }
+                //       return null;
+                //     },
+                //   ),
                 if (selectedOptions.contains('Bathrooms'))
-                  TextFormField(
-                    controller: _bathroomsController,
-                    // decoration: InputDecoration(labelText: 'Number of Bathrooms'),
-                    decoration: InputDecoration(
-                      labelText: 'Number of Bathrooms',
-                      labelStyle: TextStyle(fontSize: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _bathroomsController,
+                              decoration: InputDecoration(
+                                labelText: 'Number of Bathrooms',
+                                labelStyle: TextStyle(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              // Perform any action needed when delete is pressed, e.g., clear the field
+                              _bathroomsController.clear();
+                              _removeSelectedDetails("Bathrooms");
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a number';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                 if (selectedOptions.contains('Kitchens')) SizedBox(height: 20),
+                // if (selectedOptions.contains('Kitchens'))
+                //   TextFormField(
+                //     controller: _kitchensController,
+                //     // decoration: InputDecoration(labelText: 'Number of Kitchens'),
+                //     decoration: InputDecoration(
+                //       labelText: 'Number of Kitchens',
+                //       labelStyle: TextStyle(fontSize: 12),
+                //       border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //     ),
+                //     keyboardType: TextInputType.number,
+                //     validator: (value) {
+                //       if (value == null || value.isEmpty) {
+                //         return 'Please enter a number';
+                //       }
+                //       return null;
+                //     },
+                //   ),
                 if (selectedOptions.contains('Kitchens'))
-                  TextFormField(
-                    controller: _kitchensController,
-                    // decoration: InputDecoration(labelText: 'Number of Kitchens'),
-                    decoration: InputDecoration(
-                      labelText: 'Number of Kitchens',
-                      labelStyle: TextStyle(fontSize: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _kitchensController,
+                              decoration: InputDecoration(
+                                labelText: 'Number of Kitchens',
+                                labelStyle: TextStyle(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              // Clear the kitchens input field and remove the option from selectedOptions
+                              _kitchensController.clear();
+                              _removeSelectedDetails("Kitchens");
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a number';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                 if (selectedOptions.contains('Halls')) SizedBox(height: 20),
+                // if (selectedOptions.contains('Halls'))
+                //   TextFormField(
+                //     controller: _hallsController,
+                //     // decoration: InputDecoration(labelText: 'Number of Halls'),
+                //     decoration: InputDecoration(
+                //       labelText: 'Number of Halls',
+                //       labelStyle: TextStyle(fontSize: 12),
+                //       border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //     ),
+                //     keyboardType: TextInputType.number,
+                //     validator: (value) {
+                //       if (value == null || value.isEmpty) {
+                //         return 'Please enter a number';
+                //       }
+                //       return null;
+                //     },
+                //   ),
                 if (selectedOptions.contains('Halls'))
-                  TextFormField(
-                    controller: _hallsController,
-                    // decoration: InputDecoration(labelText: 'Number of Halls'),
-                    decoration: InputDecoration(
-                      labelText: 'Number of Halls',
-                      labelStyle: TextStyle(fontSize: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _hallsController,
+                              decoration: InputDecoration(
+                                labelText: 'Number of Halls',
+                                labelStyle: TextStyle(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              // Clear the halls input field and remove the option from selectedOptions
+                              _hallsController.clear();
+                              _removeSelectedDetails("Halls");
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a number';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                 if (selectedOptions.contains('Garages')) SizedBox(height: 20),
+                // if (selectedOptions.contains('Garages'))
+                //   TextFormField(
+                //     controller: _garagesController,
+                //     // decoration: InputDecoration(labelText: 'Number of Garages'),
+                //     decoration: InputDecoration(
+                //       labelText: 'Number of Garages',
+                //       labelStyle: TextStyle(fontSize: 12),
+                //       border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //     ),
+                //     keyboardType: TextInputType.number,
+                //     validator: (value) {
+                //       if (value == null || value.isEmpty) {
+                //         return 'Please enter a number';
+                //       }
+                //       return null;
+                //     },
+                //   ),
                 if (selectedOptions.contains('Garages'))
-                  TextFormField(
-                    controller: _garagesController,
-                    // decoration: InputDecoration(labelText: 'Number of Garages'),
-                    decoration: InputDecoration(
-                      labelText: 'Number of Garages',
-                      labelStyle: TextStyle(fontSize: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _garagesController,
+                              decoration: InputDecoration(
+                                labelText: 'Number of Garages',
+                                labelStyle: TextStyle(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              // Clear the garages input field and remove the option from selectedOptions
+                              _garagesController.clear();
+                              _removeSelectedDetails("Garages");
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a number';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                 SizedBox(height: 20),
                 if (selectedOptions.length > 0)

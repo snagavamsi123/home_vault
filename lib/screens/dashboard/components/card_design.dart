@@ -47,61 +47,59 @@ class CardHorizontal extends StatelessWidget {
     required Key key,
     required this.imageUrl,
     required this.title,
-    required this.area,required this.projectID,
+    required this.area,
+    required this.projectID,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      PropertyDetailsPage(
-                          projectID: projectID),
-                ),
-              );
-                                     
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PropertyDetailsPage(projectID: projectID),
+          ),
+        );
       },
       child: SizedBox(
-      height: 100, // Define a height for the card
-      child: Card(
-        child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-          padding: const EdgeInsets.all(8.0),
-          ),
-          Image.network(
-          imageUrl,
-          height: 80,
-          width: 80,
-          ),
-          Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+        height: 100, // Define a height for the card
+        child: Card(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-              title[0].toUpperCase() + title.substring(1),
-              style: TextStyle(color: primaryColor, fontSize: 16),
-              textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
               ),
-              Text(
-              area,
-              style: TextStyle(color: Colors.white70, fontSize: 14),
-              textAlign: TextAlign.left,
+              Image.network(
+                imageUrl,
+                height: 80,
+                width: 80,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        title[0].toUpperCase() + title.substring(1),
+                        style: TextStyle(color: primaryColor, fontSize: 16),
+                        textAlign: TextAlign.left,
+                      ),
+                      Text(
+                        area,
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
-            ),
           ),
-          ),
-        ],
         ),
-      ),
       ),
     );
   }

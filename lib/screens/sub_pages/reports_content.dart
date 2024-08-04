@@ -96,8 +96,8 @@ class _ReportsContentState extends State<ReportsContent> {
   Future<List<DateWiseFiles>> fetchData() async {
     print('@@@@@fncuncuncucn callalalalalall $_formattedDate  $_datacounter');
     final response = await http.get(Uri.parse(
-        'https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_all_data?date=$_formattedDate&counter=$_datacounter'));
-    // await http.get(Uri.parse('https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_all_data'));
+        'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/fetch_all_data?date=$_formattedDate&counter=$_datacounter'));
+    // await http.get(Uri.parse('https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/fetch_all_data'));
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body);
 
@@ -291,7 +291,7 @@ class _ReportsContentState extends State<ReportsContent> {
 // //     });
 // //     try {
 // //       final response = await http.get(Uri.parse(
-// //           'https://b6d9-115-98-217-224.ngrok-free.app/api/fetch_all_data?page=$_pageNumber&size=$_pageSize'));
+// //           'https://1533-2402-8100-2575-6398-61c1-347e-8034-f153.ngrok-free.app/api/fetch_all_data?page=$_pageNumber&size=$_pageSize'));
 // //       if (response.statusCode == 200) {
 // //         final List<dynamic> jsonList = json.decode(response.body);
 // //         final newFiles = DateWiseFiles.fromJsonList(jsonList);
